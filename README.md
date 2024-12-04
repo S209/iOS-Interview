@@ -85,6 +85,7 @@
   - [APP启动优化](#APP启动优化)
   - [安装包瘦身](#安装包瘦身)
   - [崩溃优化](#崩溃优化)
+  - [内存泄露](#内存泄露)
   
 - [WKWebView的坑](#WKWebView的坑)
   - [WKWebView白屏](#WKWebView白屏)
@@ -2468,6 +2469,11 @@ typedef void(^ResultBlock)(BusinessObject *handler, BOOL handled);
 - KVC私有属性
 - 多次移除同一 KVO 会 crash
 - 通知9.0之前移除问题
+
+### 内存泄露
+- 在 dealloc 中打印日志
+- 通过 Memory Graph 查找
+
 
 ## WKWebView的坑
 
