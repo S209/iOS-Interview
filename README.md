@@ -500,22 +500,31 @@
 ###### 分类的结构体
   ```
   struct category_t {
-    const char *name;  // 分类的名称 如Person+Student
-    classref_t cls;    // 宿主类 如Person   
-    struct method_list_t *instanceMethods; // 实例方法列表
-    struct method_list_t *classMethods;    // 类方法列表
-    struct protocol_list_t *protocols;     // 协议列表
-    struct property_list_t *instanceProperties;  // 实例属性列表
-    
-    method_list_t *methodsForMeta(bool isMeta){
-        if(isMeta) return classMethods;
+    const char *name;
+    classref_t cls;
+    WrappedPtr<method_list_t, method_list_t::Ptrauth> instanceMethods;
+    WrappedPtr<method_list_t, method_list_t::Ptrauth> classMethods;
+    // 协议方法
+    struct protocol_list_t *protocols;
+    // 对象属性
+    struct property_list_t *instanceProperties;
+    // Fields below this point are not always present on disk.
+    // 类方法
+    struct property_list_t *_classProperties;
+
+    method_list_t *methodsForMeta(bool isMeta) const {
+        if (isMeta) return classMethods;
         else return instanceMethods;
     }
-    property_list_t *propertiesForMeta(bool isMeta){
-        if(isMeta) return nil;
-        eles return instanceProperties;
+
+    property_list_t *propertiesForMeta(bool isMeta, struct header_info *hi) const;
+    
+    protocol_list_t *protocolsForMeta(bool isMeta) const {
+        if (isMeta) return nullptr;
+        else return protocols;
     }
-  }
+};
+  
   ```
 ###### 分类的调用栈
 
