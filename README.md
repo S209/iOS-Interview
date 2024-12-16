@@ -95,6 +95,7 @@
 - [AFNetWorking](#AFNetWorking)
   - [主要构成](#主要构成)
   - [相关面试问题](#相关面试问题)
+  - [为什么要更换]
   
 - [SDWebImage](#SDWebImage)
   - [主要构成](#主要构成)
@@ -2576,6 +2577,10 @@ WKWebView loadRequest 前，在 request header 中设置 Cookie, 解决首个请
 - 三个主要类的更换对应着请求方法也进行更换
 - AFN2.0常驻线程,AFN3.0不需要
 - `operationQueue`作用不同
+
+#### 为什么要更换
+- NSURLSession提升了网络连接速度，采用了 HTTP2.0，HTTP2.0 多路复用、新的二进制格式、header压缩
+- Session采用了共享，而非每次都新建
 
 
 ##### AFN2.0 为何使用常驻线程?
